@@ -2,6 +2,7 @@
 include("connection.php");
 $date1=$_REQUEST['date1'];
 $date2=$_REQUEST['date2'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,19 +20,20 @@ $date2=$_REQUEST['date2'];
 
         </tr>
         <?php 
-        for($i=$date1;$i<$date2;$i++){
-        $query=mysqli_query($con,"SELECT * FROM `main_application` where  dt='$date1'");
+        for($i=$date1;$i<=$date2;$i++){
+        $query=mysqli_query($con,"SELECT * FROM `main_application` where  dt='$i'");
         $count=mysqli_num_rows($query);
-        $query1=mysqli_query($con,"SELECT * FROM `main_application` where  dt='$date1' and stat='1'");
+        
+        $query1=mysqli_query($con,"SELECT * FROM `main_application` where  dt='$i' and stat='1'");
         $count1=mysqli_num_rows($query1);
-        $query2=mysqli_query($con,"SELECT * FROM `main_application` where  dt='$date1' and stat='2'");
+        $query2=mysqli_query($con,"SELECT * FROM `main_application` where  dt='$i' and stat='2'");
         $count2=mysqli_num_rows($query2);
-        $query3=mysqli_query($con,"SELECT * FROM `main_application` where  dt='$date1' and stat='0'");
+        $query3=mysqli_query($con,"SELECT * FROM `main_application` where  dt='$i' and stat='0'");
         $count3=mysqli_num_rows($query3);
-    }
+    
             ?>
                 <tr>
-                    <td><?php echo $date1;?></td>
+                    <td><?php echo $i;?></td>
                     <td><?php echo $count;?></td>
                     <td><?php echo $count1;?></td>
                     <td><?php echo $count2;?></td>
@@ -39,7 +41,7 @@ $date2=$_REQUEST['date2'];
 
                 </tr>
             <?php
-        //}
+        }
         ?>
     </table>
 </body>
