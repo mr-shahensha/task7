@@ -7,6 +7,7 @@ $date2=$_REQUEST['date2'];
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -20,7 +21,9 @@ $date2=$_REQUEST['date2'];
 
         </tr>
         <?php 
+        $f=0;
         for($i=$date1;$i<=$date2;$i++){
+            $f++;
         $query=mysqli_query($con,"SELECT * FROM `main_application` where  dt='$i'");
         $count=mysqli_num_rows($query);
         
@@ -34,15 +37,39 @@ $date2=$_REQUEST['date2'];
             ?>
                 <tr>
                     <td><?php echo $i;?></td>
-                    <td><?php echo $count;?></td>
-                    <td><?php echo $count1;?></td>
-                    <td><?php echo $count2;?></td>
-                    <td><?php echo $count3;?></td>
+                  
+                    <td><a onclick="myFunction('<?php echo $f;?>','','<?php echo $i;?>')"><?php echo $count;?></a></td>
+                    <td><a onclick="myFunction('<?php echo $f;?>','1','<?php echo $i;?>')"><?php echo $count1;?></a></td>
+                    <td><a onclick="myFunction('<?php echo $f;?>','2','<?php echo $i;?>')"><?php echo $count2;?></a></td>
+                    <td><a onclick="myFunction('<?php echo $f;?>','0','<?php echo $i;?>')"><?php echo $count3;?></a></td>
+                  
 
+                </tr>
+
+
+                <tr>
+                    <td colspan="5"  id="div<?php echo $f;?>" style="display:none;">  
+                       
+                    </td>
                 </tr>
             <?php
         }
         ?>
+   
     </table>
 </body>
 </html>
+<script>
+
+         function myFunction(a,stat,dt) {
+            var x= document.getElementById("div"+a);
+                // var non= document.getElementById("div"+a).style.display = "none";
+                    if(x.style.display == "none"){
+                        x.style.display = 'block';
+                        $('#div'+a).load('call_vdwa.php?stat='+stat+'&dt='+dt).fadeIn('fast');
+
+                        } else {
+                            x.style.display = 'none';
+                        }
+                }
+</script>
